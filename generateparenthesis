@@ -1,0 +1,79 @@
+Single File Programming Question
+Generate Parentheses
+
+
+
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+
+
+ Example 1:
+
+Input: n = 3
+
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+
+
+
+Example 2:
+
+Input: n = 1
+
+Output: ["()"]
+
+Input format :
+The input contains a single integer n, representing the number of pairs of parentheses.
+
+Output format :
+The output prints a single line containing a list of strings in JSON-like array format, where each string is a valid combination of n well-formed parentheses. The strings are comma-separated and enclosed in double quotes.
+
+
+
+Refer to the sample output for the formatting specifications.
+
+Code constraints :
+The given test cases fall under the following constraints:
+
+1 ≤ n ≤ 8
+
+Sample test cases :
+Input 1 :
+3
+Output 1 :
+["((()))","(()())","(())()","()(())","()()()"]
+Input 2 :
+1
+Output 2 :
+["()"]
+
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner s = new Scanner(System.in);
+        int n = s.nextInt();
+        List<String>res = new ArrayList<>();
+        generate(n,n,"",res);  
+        System.out.print("[");
+        for (int i = 0; i < res.size(); i++) {
+            System.out.print(res.get(i));
+            if (i != res.size() - 1) System.out.print(",");
+        }
+        System.out.println("]");
+        
+        }
+    
+    
+    public static void generate(int open,int close,String curr,List<String>res){
+        if(open==0&&close==0){
+            res.add("\""+curr+"\"");
+            return;
+        }
+        if(open>0){
+            generate(open-1,close,curr+"(",res);
+        }
+        
+        if(close>open){
+            generate(open,close-1,curr+")",res);
+        }
+    }
+}
