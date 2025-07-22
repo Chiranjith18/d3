@@ -1,0 +1,105 @@
+Single File Programming Question
+Problem Statement
+
+
+
+Given an array of lowercase strings strs, group the anagrams together. Each group must contain strings that are anagrams of each other.
+
+
+
+Within each group: Strings must be sorted in lexicographical order.
+
+
+
+Across all groups: 
+
+Groups must be sorted in increasing order of group size.
+
+If multiple groups have the same size, preserve their insertion order (or lexicographic first string if specified).
+
+
+
+Example 1:
+
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+Explanation:
+
+There is no string in strs that can be rearranged to form "bat".
+
+The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.
+
+
+
+Example 2:
+
+Input: strs = ["a"]
+
+Output: [["a"]]
+
+Input format :
+The input consists of a space-separated list of lowercase strings.
+
+Output format :
+The output prints a list of lists. Each inner list:
+
+
+
+Contains double-quoted strings
+
+Strings are comma-separated
+
+Entire output must match sample format exactly
+
+
+
+Refer to the sample output for the formatting specifications.
+
+Code constraints :
+1 ≤ strs.length ≤ 104
+
+0 ≤ strs[i].length ≤ 100
+
+strs[i] consists of lowercase English letters.
+
+Sample test cases :
+Input 1 :
+eat tea tan ate nat bat
+Output 1 :
+[["bat"],["nat","tan"],["ate","eat","tea"]]
+Input 2 :
+a
+Output 2 :
+[["a"]]
+
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        String[] inp = sc.nextLine().split(" ");
+        HashMap<String,Integer>m = new HashMap<>();
+        List<List<String>>res = new ArrayList<>();
+        for(String in:inp){
+           String s = in;
+           char[] chars = s.toCharArray();
+           Arrays.sort(chars);
+           s = new String(chars);
+           if(!m.containsKey(s)){
+               m.put(s,res.size());
+               res.add(new ArrayList<>());
+           }
+           res.get(m.get(s)).add("\""+in+"\"");
+        }
+        for(List<String>group:res){
+            Collections.sort(group);
+        }
+        Collections.sort(res,(a,b)->{
+         return   a.size()-b.size();
+        });
+        System.out.println(res);
+    }
+}
