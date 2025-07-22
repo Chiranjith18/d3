@@ -1,0 +1,147 @@
+Single File Programming Question
+Combination Sum
+
+
+
+Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
+
+
+
+The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.
+
+
+
+The test cases are generated such that the number of unique combinations that sum up to the target is less than 150 combinations for the given input.
+
+
+
+Example 1:
+
+Input: 
+
+candidates = 2 3 6 7, target = 7
+
+Output: 
+
+[2,2,3]
+
+[7]
+
+Explanation:
+
+2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.
+
+7 is a candidate, and 7 = 7.
+
+These are the only two combinations.
+
+
+
+Example 2:
+
+Input: 
+
+candidates = 2 3 5, target = 8
+
+Output: 
+
+[2,2,2,2]
+
+[2,3,3]
+
+[3,5]
+
+
+
+Example 3:
+
+Input: 
+
+candidates = 2, target = 1
+
+Output: 
+
+[]
+
+Input format :
+The first line of input consists of a list of distinct integers, representing the available donation amounts (candidates).
+
+The second line consists of an integer, representing the target donation amount.
+
+Output format :
+The output prints lists, where each list contains one possible combination of donation amounts that sum up to the target. The combinations should be unique, and the same number may appear multiple times.
+
+
+
+Refer to the sample output for formatting specifications.
+
+Code constraints :
+1 ≤ candidates.length ≤ 30
+
+2 ≤ candidates[i] ≤ 40
+
+1 ≤ target ≤ 40
+
+All elements of the candidates are distinct.
+
+Sample test cases :
+Input 1 :
+2 3 6 7
+7
+Output 1 :
+[2,2,3]
+[7]
+Input 2 :
+2 3 5
+8
+Output 2 :
+[2,2,2,2]
+[2,3,3]
+[3,5]
+Input 3 :
+2
+1
+Output 3 :
+[]
+
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner s = new Scanner(System.in);
+        String[] inp = s.nextLine().split(" ");
+        int target = s.nextInt();
+        int[] arr = new int[inp.length];
+        for(int i=0;i<arr.length;i++){
+            arr[i] = Integer.parseInt(inp[i]);
+        }
+        List<List<Integer>>res = new ArrayList<>();
+        List<Integer>ans = new ArrayList<>();
+        combinations(0,arr,ans,res,target);
+        for(List<Integer>ar:res){
+            System.out.println(ar);
+        }
+        if(res.size()==0){
+            System.out.println("[]");
+        }
+    }
+    
+    public static void combinations(int i,int[] arr,List<Integer>ans,List<List<Integer>>res,int target){
+       if(target==0){
+           res.add(new ArrayList<>(ans));
+           return;
+       }
+       if(target<0||i>=arr.length){
+           return;
+       }
+       
+           ans.add(arr[i]);
+           combinations(i,arr,ans,res,target-arr[i]); 
+             ans.remove(ans.size()-1);
+           combinations(i+1,arr,ans,res,target);
+           
+          
+           
+         
+      
+    }
+}
